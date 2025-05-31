@@ -1,4 +1,5 @@
 import base64
+import json
 from graph import build_graph
 
 def get_image_base64():
@@ -17,7 +18,7 @@ if image_b64:
     try:
         graph = build_graph()
         result = graph.invoke({"image_base64": image_b64})
-        print("🛍️ Final Result:", result)
+        print("\n🛍️ Final Result:\n" + json.dumps(result, indent=2))
     except Exception as e:
         print("❌ Error while invoking graph:", e)
 else:
