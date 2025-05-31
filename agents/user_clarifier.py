@@ -1,7 +1,12 @@
 import os
 
 def clarify_preferences(context):
-    product_type = context.get("product_type", "product")
+    # Ask for product type if missing or user wants to retry
+    if not context.get("product_type") or context.get("reset_product_type"):
+        context["product_type"] = input("\n🛍️ What type of product are you looking for? (e.g., sneakers, electronics, books): ").strip().lower()
+        context.pop("reset_product_type", None)
+
+    product_type = context["product_type"]
 
     print("\n🤖 Choose an LLM provider for clarification:")
     print("1. OpenAI GPT-4")
@@ -54,7 +59,7 @@ Return them as a markdown bullet list.
 
     if choice == "3" or not questions_text:
         print("\n🔧 Running in Mock Mode.")
-        if product_type.lower() == "sneakers":
+        if product_type == "sneakers":
             questions_text = """
 - What brand of sneakers are you interested in?
 - What is your preferred color?
@@ -62,7 +67,7 @@ Return them as a markdown bullet list.
 - What size do you wear?
 - Do you prefer any material (e.g., mesh, leather)?
 """
-        elif product_type.lower() == "electronics":
+        elif product_type == "electronics":
             questions_text = """
 - Which electronics brand do you prefer?
 - What category (e.g., phone, laptop, headphones) are you looking for?
@@ -70,7 +75,7 @@ Return them as a markdown bullet list.
 - Do you have any preferred specs or features?
 - Any color preference for the device?
 """
-        elif product_type.lower() == "books":
+        elif product_type == "books":
             questions_text = """
 - What genre of books are you interested in?
 - Do you prefer paperback or hardcover?
@@ -87,9 +92,8 @@ Return them as a markdown bullet list.
 - Any material or feature preferences?
 """
 
-    # Parse and ask questions
     questions = [q.strip("-• ").strip() for q in questions_text.splitlines() if q.strip()]
-    preferences = context.get("preferences", {})
+    preferences = {}
 
     print("\n🧠 Please answer the following questions:")
     for q in questions:
@@ -99,7 +103,6 @@ Return them as a markdown bullet list.
                 break
             print("⚠️ Input cannot be empty. Please provide a valid response.")
 
-        # Heuristically assign keys
         key_parts = q.lower().split()
         key = None
         for part in ['brand', 'color', 'size', 'material', 'category', 'genre', 'type', 'feature', 'specs', 'price', 'price_range']:
@@ -110,10 +113,9 @@ Return them as a markdown bullet list.
             key = f"preference_{len(preferences)+1}"
         preferences[key] = ans
 
-    # Normalize price input if needed
     if 'price' in preferences and 'price_range' not in preferences:
         preferences['price_range'] = preferences['price']
 
-    context["questions"] = questions
     context["preferences"] = preferences
+    context["questions"] = questions
     return context

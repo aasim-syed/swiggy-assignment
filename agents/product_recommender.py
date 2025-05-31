@@ -21,8 +21,9 @@ def recommend_product(context):
     with open(json_path, "r") as f:
         product_catalog = json.load(f)
 
-    # Match category more flexibly
     def category_matches(p_category, user_type):
+        if not p_category:
+            return False
         return user_type in p_category.lower() or p_category.lower() in user_type
 
     recommendations = []
@@ -43,6 +44,7 @@ def recommend_product(context):
         print("2. Upload another image")
         choice = input("Enter your choice (1/2): ").strip()
         if choice == "1":
+            context["reset_product_type"] = True
             return clarify_preferences(context)
         elif choice == "2":
             context.pop("image_base64", None)

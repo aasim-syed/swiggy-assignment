@@ -39,5 +39,6 @@
   {"id": 18, "name": "The Alchemist", "brand": "HarperCollins", "color": "yellow", "price": 399, "category": "books"},
   {"id": 19, "name": "Ikigai", "brand": "Penguin", "color": "blue", "price": 299, "category": "books"},
   {"id": 20, "name": "Deep Work", "brand": "Grand Central", "color": "black", "price": 599, "category": "books"}
+  
  ]
 
