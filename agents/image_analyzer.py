@@ -7,7 +7,7 @@ def analyze_image(context):
     image_b64 = context.get("image_base64")
 
     if not image_b64:
-        context["product_type"] = input("🔍 No image detected. Please manually enter the product category (e.g., sneakers, electronics, books): ").strip().lower()
+        context["product_type"] = input("🔍 No image detected. Please manually enter the product category (e.g., sneakers, electronics): ").strip().lower()
         context["error"] = "No image provided, using manual category input."
         return context
 
@@ -22,7 +22,7 @@ def analyze_image(context):
                 {
                     "role": "user",
                     "content": [
-                        {"type": "text", "text": "Describe this product and infer its category (like sneakers, clothes, electronics, food, books)."},
+                        {"type": "text", "text": "Describe this product and infer its category (like sneakers, electronics)."},
                         {
                             "type": "image_url",
                             "image_url": {
@@ -44,7 +44,7 @@ def analyze_image(context):
 
     except Exception as e:
         print(f"\n⚠️ OpenAI Vision failed: {e}")
-        context["product_type"] = input("🔍 Vision failed. Please manually enter the product category (e.g., sneakers, electronics, books): ").strip().lower()
+        context["product_type"] = input("🔍 Vision failed. Please manually enter the product category (e.g., sneakers, electronics): ").strip().lower()
         context["error"] = "Vision API failed, using manual input"
         return context
 
