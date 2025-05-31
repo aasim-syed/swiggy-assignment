@@ -1,4 +1,5 @@
 import json
+import os
 
 def recommend_product(context):
     preferences = context.get("preferences", {})
@@ -12,16 +13,17 @@ def recommend_product(context):
     except:
         min_price, max_price = 0, float('inf')
 
-    product_catalog = [
-        {"id": 1, "name": "Nike Air Max White", "brand": "Nike", "color": "white", "price": 4500},
-        {"id": 2, "name": "Adidas Ultraboost Black", "brand": "Adidas", "color": "black", "price": 5200},
-    ]
+    # Load products from JSON
+    json_path = os.path.join(os.path.dirname(__file__), "..", "product_db", "mock_products.json")
+    with open(json_path, "r") as f:
+        product_catalog = json.load(f)
 
+    # Filter recommendations
     recommendations = []
     for product in product_catalog:
-        if (brand == "any" or brand in product["brand"].lower()) and \
-           (color == "any" or color in product["color"].lower()) and \
-           min_price <= product["price"] <= max_price:
+        if (brand == "any" or brand in product.get("brand", "").lower()) and \
+           (color == "any" or color in product.get("color", "").lower()) and \
+           (min_price <= product.get("price", 0) <= max_price):
             recommendations.append(product)
 
     context["recommendations"] = recommendations

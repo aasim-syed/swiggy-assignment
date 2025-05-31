@@ -1,4 +1,22 @@
-[
+ [
   {"id": 1, "name": "Nike Air Max White", "brand": "Nike", "color": "white", "price": 4500},
-  {"id": 2, "name": "Adidas Ultraboost Black", "brand": "Adidas", "color": "black", "price": 5200}
+  {"id": 2, "name": "Adidas Ultraboost Black", "brand": "Adidas", "color": "black", "price": 5200},
+  {"id": 3, "name": "Puma RS-X Grey", "brand": "Puma", "color": "grey", "price": 3800},
+  {"id": 4, "name": "Reebok Classic Blue", "brand": "Reebok", "color": "blue", "price": 3400},
+  {"id": 5, "name": "Nike Revolution Red", "brand": "Nike", "color": "red", "price": 3100},
+  {"id": 6, "name": "Adidas NMD R1 White", "brand": "Adidas", "color": "white", "price": 4900},
+  {"id": 7, "name": "Under Armour Charged Black", "brand": "Under Armour", "color": "black", "price": 4200},
+  {"id": 8, "name": "Asics Gel-Kayano Blue", "brand": "Asics", "color": "blue", "price": 5600},
+  {"id": 9, "name": "Skechers GoRun Yellow", "brand": "Skechers", "color": "yellow", "price": 2700},
+  {"id": 10, "name": "Fila Disruptor Red", "brand": "Fila", "color": "red", "price": 3000},
+  {"id": 11, "name": "New Balance Fresh Foam White", "brand": "New Balance", "color": "white", "price": 4600},
+  {"id": 12, "name": "Nike Pegasus Turbo Blue", "brand": "Nike", "color": "blue", "price": 5500},
+  {"id": 13, "name": "Adidas Yeezy Boost Grey", "brand": "Adidas", "color": "grey", "price": 6900},
+  {"id": 14, "name": "Puma Smash v2 Black", "brand": "Puma", "color": "black", "price": 3300},
+  {"id": 15, "name": "Reebok Nano Red", "brand": "Reebok", "color": "red", "price": 3700},
+  {"id": 16, "name": "Nike Court Vision White", "brand": "Nike", "color": "white", "price": 4100},
+  {"id": 17, "name": "Skechers D'Lites Grey", "brand": "Skechers", "color": "grey", "price": 3600},
+  {"id": 18, "name": "Asics GT-2000 Yellow", "brand": "Asics", "color": "yellow", "price": 4800},
+  {"id": 19, "name": "Fila Ray Tracer Navy", "brand": "Fila", "color": "blue", "price": 2900},
+  {"id": 20, "name": "Under Armour HOVR Phantom Red", "brand": "Under Armour", "color": "red", "price": 5300}
 ]
