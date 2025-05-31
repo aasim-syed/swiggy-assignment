@@ -3,3 +3,11 @@ openai
 Pillow
 anthropic
 requests
+# === File: requirements.txt ===
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+openai>=1.0.0
+anthropic
+

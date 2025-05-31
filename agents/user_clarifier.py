@@ -2,21 +2,17 @@ import os
 
 def clarify_preferences(context):
     product_type = context.get("product_type", "product")
-
-    print("\n🤖 Choose an LLM provider for clarification:")
-    print("1. OpenAI GPT-4")
-    print("2. Claude 3.7 Sonnet")
-    print("3. Mock Mode (No API Key Required)")
-    choice = input("Enter 1, 2, or 3: ").strip()
-
+    preferences = context.get("preferences", {})
     questions_text = ""
 
-    if choice == "1":
+    # Default to mock if nothing is configured
+    provider = "mock"
+
+    if os.getenv("OPENAI_API_KEY"):
         try:
             from openai import OpenAI
             client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-            print("\n🧠 Generating questions using GPT-4...")
             prompt = f"""
 You're an intelligent shopping assistant. Based on the product type "{product_type}", 
 generate 5 clear and helpful questions to understand the user's preferences before recommending a product. 
@@ -29,11 +25,11 @@ Return the questions as a markdown bullet list.
                 max_tokens=300
             )
             questions_text = response.choices[0].message.content
+            provider = "openai"
         except Exception as e:
-            print(f"❌ OpenAI error: {e}")
-            choice = "3"
+            context["llm_error"] = f"OpenAI error: {e}"
 
-    if choice == "2":
+    elif os.getenv("ANTHROPIC_API_KEY"):
         try:
             import anthropic
             client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
@@ -48,12 +44,11 @@ Return them as a markdown bullet list.
                 messages=[{"role": "user", "content": prompt}]
             )
             questions_text = response.content[0].text
+            provider = "claude"
         except Exception as e:
-            print(f"❌ Claude error: {e}")
-            choice = "3"
+            context["llm_error"] = f"Claude error: {e}"
 
-    if choice == "3" or not questions_text:
-        print("\n🔧 Running in Mock Mode.")
+    if not questions_text or provider == "mock":
         if product_type.lower() == "sneakers":
             questions_text = """
 - What brand of sneakers are you interested in?
@@ -85,34 +80,10 @@ Return them as a markdown bullet list.
 - Do you have a preferred size?
 - Any material or feature preferences?
 """
+        context["mock_mode"] = True
 
-    # Parse and ask questions
     questions = [q.strip("-• ").strip() for q in questions_text.splitlines() if q.strip()]
-    preferences = context.get("preferences", {})
-
-    print("\n🧠 Please answer the following questions:")
-    for q in questions:
-        while True:
-            ans = input(f"→ {q}: ").strip()
-            if ans:
-                break
-            print("⚠️ Input cannot be empty. Please provide a valid response.")
-
-        # Heuristically assign keys
-        key_parts = q.lower().split()
-        key = None
-        for part in ['brand', 'color', 'size', 'material', 'category', 'genre', 'type', 'feature', 'specs', 'price', 'price_range']:
-            if part in key_parts:
-                key = part
-                break
-        if not key:
-            key = f"preference_{len(preferences)+1}"
-        preferences[key] = ans
-
-    # Normalize price input if needed
-    if 'price' in preferences and 'price_range' not in preferences:
-        preferences['price_range'] = preferences['price']
-
     context["questions"] = questions
-    context["preferences"] = preferences
+    context["preferences"] = preferences  # Empty at this point; filled by frontend
+
     return context

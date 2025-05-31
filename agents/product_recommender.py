@@ -1,7 +1,5 @@
 import json
 import os
-from agents.user_clarifier import clarify_preferences
-from agents.image_analyzer import analyze_image
 
 def recommend_product(context):
     preferences = context.get("preferences", {})
@@ -18,7 +16,7 @@ def recommend_product(context):
         else:
             min_price = 0
             max_price = int(price_range)
-    except:
+    except Exception:
         min_price, max_price = 0, float("inf")
 
     # Load product catalog
@@ -27,37 +25,34 @@ def recommend_product(context):
         product_catalog = json.load(f)
 
     def match(product):
+        if "category" not in product or not product["category"]:
+            return False
+
         p_brand = product.get("brand", "").lower()
         p_color = product.get("color", "").lower()
         p_price = product.get("price", 0)
-        p_category = product.get("category", "").lower()
+        p_category_raw = product.get("category", "")
+        p_categories = [c.strip().lower() for c in p_category_raw.split(",")]
 
-        return (
-            (category in p_category or p_category in category)
-            and (brand == "any" or brand in p_brand)
-            and (color == "any" or color in p_color)
-            and min_price <= p_price <= max_price
-        )
+        brand_match = (brand == "any" or brand in p_brand)
+        color_match = (color == "any" or color in p_color)
+        category_match = category in p_categories
+        price_match = min_price <= p_price <= max_price
+
+        # ✅ All must match strictly
+        return brand_match and color_match and category_match and price_match
 
     recommendations = [p for p in product_catalog if match(p)]
+
     context["recommendations"] = recommendations
 
     if not recommendations:
-        print("\n❌ No matching products found.")
-        print(f"🔍 DEBUG:\nbrand={brand}, category={category}, color={color}, price_range={min_price}-{max_price}")
-        print("Would you like to:")
-        print("1. Try again with different preferences")
-        print("2. Upload another image")
-        choice = input("Enter your choice (1/2): ").strip()
-        if choice == "1":
-            context["reset_product_type"] = True
-            return clarify_preferences(context)
-        elif choice == "2":
-            context.pop("image_base64", None)
-            return analyze_image(context)
-
-    print(f"\n✅ {len(recommendations)} matching products found:")
-    for p in recommendations:
-        print(f"- {p['name']} | ₹{p['price']} | {p['brand']} | {p['color']}")
+        context["error"] = "No matching products found."
+        context["debug"] = {
+            "brand": brand,
+            "category": category,
+            "color": color,
+            "price_range": f"{min_price}-{max_price}"
+        }
 
     return context
