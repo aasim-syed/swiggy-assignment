@@ -28,7 +28,7 @@
   {"id": 7, "name": "Zara Slim Fit Jeans", "brand": "Zara", "color": "blue", "price": 2999, "category": "clothes"},
   {"id": 8, "name": "Uniqlo Winter Jacket", "brand": "Uniqlo", "color": "black", "price": 6999, "category": "clothes"},
   {"id": 9, "name": "Samsung Galaxy S21", "brand": "Samsung", "color": "black", "price": 68000, "category": "electronics"},
-  {"id": 10, "name": "Apple AirPods Pro", "brand": "Apple", "color": "white", "price": 24999, "category": "electronics"},
+  {"id": 10, "name": "Apple AirPods Pro", "brand": "Apple", "color": "white", "price": 24999, "category": "electronics, headphones"},
   {"id": 11, "name": "Sony WH-1000XM4", "brand": "Sony", "color": "silver", "price": 29990, "category": "electronics"},
   {"id": 12, "name": "Dell XPS 13 Laptop", "brand": "Dell", "color": "silver", "price": 99999, "category": "electronics"},
   {"id": 13, "name": "Cheeseburger", "brand": "McDonald's", "color": "brown", "price": 200, "category": "food"},

@@ -67,7 +67,6 @@ Return them as a markdown bullet list.
 - Which electronics brand do you prefer?
 - What category (e.g., phone, laptop, headphones) are you looking for?
 - What is your budget range?
-- Do you have any preferred specs or features?
 - Any color preference for the device?
 """
         elif product_type.lower() == "books":
