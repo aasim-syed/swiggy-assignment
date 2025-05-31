@@ -18,5 +18,26 @@
   {"id": 17, "name": "Skechers D'Lites Grey", "brand": "Skechers", "color": "grey", "price": 3600},
   {"id": 18, "name": "Asics GT-2000 Yellow", "brand": "Asics", "color": "yellow", "price": 4800},
   {"id": 19, "name": "Fila Ray Tracer Navy", "brand": "Fila", "color": "blue", "price": 2900},
-  {"id": 20, "name": "Under Armour HOVR Phantom Red", "brand": "Under Armour", "color": "red", "price": 5300}
-]
+  {"id": 20, "name": "Under Armour HOVR Phantom Red", "brand": "Under Armour", "color": "red", "price": 5300},
+  {"id": 1, "name": "Nike Air Max White", "brand": "Nike", "color": "white", "price": 4500, "category": "sneakers"},
+  {"id": 2, "name": "Adidas Ultraboost Black", "brand": "Adidas", "color": "black", "price": 5200, "category": "sneakers"},
+  {"id": 3, "name": "Puma RS-X Grey", "brand": "Puma", "color": "grey", "price": 3800, "category": "sneakers"},
+  {"id": 4, "name": "Reebok Classic Blue", "brand": "Reebok", "color": "blue", "price": 3400, "category": "sneakers"},
+  {"id": 5, "name": "Levi's Blue Shirt", "brand": "Levi's", "color": "blue", "price": 2500, "category": "clothes"},
+  {"id": 6, "name": "H&M White T-Shirt", "brand": "H&M", "color": "white", "price": 999, "category": "clothes"},
+  {"id": 7, "name": "Zara Slim Fit Jeans", "brand": "Zara", "color": "blue", "price": 2999, "category": "clothes"},
+  {"id": 8, "name": "Uniqlo Winter Jacket", "brand": "Uniqlo", "color": "black", "price": 6999, "category": "clothes"},
+  {"id": 9, "name": "Samsung Galaxy S21", "brand": "Samsung", "color": "black", "price": 68000, "category": "electronics"},
+  {"id": 10, "name": "Apple AirPods Pro", "brand": "Apple", "color": "white", "price": 24999, "category": "electronics"},
+  {"id": 11, "name": "Sony WH-1000XM4", "brand": "Sony", "color": "silver", "price": 29990, "category": "electronics"},
+  {"id": 12, "name": "Dell XPS 13 Laptop", "brand": "Dell", "color": "silver", "price": 99999, "category": "electronics"},
+  {"id": 13, "name": "Cheeseburger", "brand": "McDonald's", "color": "brown", "price": 200, "category": "food"},
+  {"id": 14, "name": "Veg Pizza Medium", "brand": "Domino's", "color": "red", "price": 350, "category": "food"},
+  {"id": 15, "name": "Chicken Biryani", "brand": "Behrouz", "color": "brown", "price": 499, "category": "food"},
+  {"id": 16, "name": "Cappuccino", "brand": "Starbucks", "color": "brown", "price": 250, "category": "food"},
+  {"id": 17, "name": "Atomic Habits", "brand": "Penguin", "color": "white", "price": 499, "category": "books"},
+  {"id": 18, "name": "The Alchemist", "brand": "HarperCollins", "color": "yellow", "price": 399, "category": "books"},
+  {"id": 19, "name": "Ikigai", "brand": "Penguin", "color": "blue", "price": 299, "category": "books"},
+  {"id": 20, "name": "Deep Work", "brand": "Grand Central", "color": "black", "price": 599, "category": "books"}
+ ]
+
