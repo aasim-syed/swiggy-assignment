@@ -48,6 +48,14 @@ Explore how the agent works across different scenarios:
 | 4      | 📚 Books category (branch test)  |                                              [Watch Demo](https://drive.google.com/file/d/1vXcbNMOZJ6-4d0eo3FFnil4EU0UdUbZ7/view?usp=sharing)                                    |
 | 5    | install demo  |                                              [Watch Demo](https://drive.google.com/file/d/1V90f2_BKGiHFYOxxLXCbVTmA3dkw4uuY/view?usp=sharing)                                    |
 
+## ⚠️ Note: API-Free Mock Mode Enabled 🧪🚫💳
+Since I currently don't have access to an OpenAI or Anthropic API key (credit card required), I’ve painstakingly memorized and replicated their message formats to implement a fully functional Mock Mode 🎭.
+
+This ensures the agent works offline and is API-key ready — just plug in your keys when available 🔑.
+
+🧠 The logic, flow, and architecture mirror production-ready setups, making this ideal for future extension with real API access.
+
+
 ### ⚙️ Extensible Graph Architecture (via LangGraph)
 - Modular agent nodes:
   - `image_analyzer`
