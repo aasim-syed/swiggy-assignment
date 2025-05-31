@@ -137,19 +137,7 @@ npm create vite@latest shopping-assistant-ui
 | Apple AirPods Output (1) | `https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102823.png` |
 | Apple AirPods Output (2) | `https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102904.png` |
 
-## 🧪 Screenshots
 
-### 🏷️ Sneaker Image Questioning Flow
-
-![Sneaker Step 1](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102601.png)
-![Sneaker Step 2](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102609.png)
-![Sneaker Step 3](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102622.png)
-![Sneaker Final Result](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102724.png)
-
-### 🍏 Apple AirPods Flow
-
-![AirPods Step 1](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102823.png)
-![AirPods Step 2](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102904.png)
 
 ### For sneaker
 python .\main.py
@@ -244,6 +232,14 @@ Enter 1, 2, or 3: 1
   ]
 }
 
+## 🧪 Screenshots
+
+### 🏷️ Sneaker Image Questioning Flow
+
+![Sneaker Step 1](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102601.png)
+![Sneaker Step 2](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102609.png)
+![Sneaker Step 3](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102622.png)
+![Sneaker Final Result](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102724.png)
 
 ### For electronics
 
@@ -305,6 +301,12 @@ Enter 1, 2, or 3: 1
     }
   ]
 }
+
+### 🍏 Apple AirPods Flow
+
+![AirPods Step 1](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102823.png)
+![AirPods Step 2](https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102904.png)
+
 
 ### For Books
 > python .\main.py
