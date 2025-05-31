@@ -1,4 +1,4 @@
 [
-  {"id": 1, "name": "Nike Air Max White", "brand": "Nike", "price": 4500},
-  {"id": 2, "name": "Adidas Ultraboost Black", "brand": "Adidas", "price": 5200}
+  {"id": 1, "name": "Nike Air Max White", "brand": "Nike", "color": "white", "price": 4500},
+  {"id": 2, "name": "Adidas Ultraboost Black", "brand": "Adidas", "color": "black", "price": 5200}
 ]
