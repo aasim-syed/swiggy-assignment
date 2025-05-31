@@ -1,12 +1,4 @@
-
-type Product = {
-  name: string;
-  brand: string;
-  color: string;
-  category: string;
-  price: number;
-};
-
+import type { Product } from "../types/types";
 export const ProductCards = ({ products }: { products: Product[] }) => {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

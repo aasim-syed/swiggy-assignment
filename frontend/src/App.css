@@ -1,21 +1,89 @@
+/* -----------------------------------------------
+   GLOBAL STYLING
+   ----------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #ff6b6b;
+  --secondary-color: #4d96ff;
+  --text-color: #333333;
+  --bg-light: #f5f7fa;
+  --bg-dark: #1e2024;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-bg-dark: rgba(30, 32, 36, 0.85);
+  --border-radius: 16px;
+  --shadow-light: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-dark: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  color-scheme: light dark;
+  background: var(--bg-light);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: var(--bg-dark);
+    color: #f0f0f0;
+  }
+}
+
+/* Smooth scroll bar for aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 100, 100, 0.5);
+}
+
+/* -----------------------------------------------
+   ROOT CONTAINER
+   ----------------------------------------------- */
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 2rem;
   text-align: center;
 }
 
+/* -----------------------------------------------
+   LOGO ANIMATION & STYLING
+   ----------------------------------------------- */
+
 .logo {
+  display: inline-block;
   height: 6em;
   padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  will-change: filter, transform;
+  transition: filter 300ms ease, transform 300ms ease;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em var(--secondary-color)aa);
+  transform: scale(1.05) rotate(5deg);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+  transform: scale(1.05) rotate(-5deg);
 }
 
 @keyframes logo-spin {
@@ -33,10 +101,102 @@
   }
 }
 
+/* -----------------------------------------------
+   CARD & CONTENT STYLES
+   ----------------------------------------------- */
+
 .card {
+  margin: 2rem auto;
+  max-width: 800px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  backdrop-filter: blur(12px);
   padding: 2em;
+  text-align: left;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: var(--card-bg-dark);
+    box-shadow: var(--shadow-dark);
+  }
+}
+
+/* Card header */
+.card h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+/* Card body text */
+.card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  color: inherit;
+}
+
+/* Links inside card */
+.card a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom-color 0.25s ease;
+}
+
+.card a:hover {
+  border-bottom-color: var(--secondary-color);
+}
+
+/* Buttons */
+.card button,
+button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.1s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card button:hover,
+button:hover {
+  background: #e05656;
+  transform: translateY(-2px);
+}
+
+.card button:active,
+button:active {
+  transform: translateY(0);
+}
+
+@media (prefers-color-scheme: dark) {
+  .card button,
+  button {
+    background: var(--secondary-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+  .card button:hover,
+  button:hover {
+    background: #3a7bf4;
+  }
+}
+
+/* -----------------------------------------------
+   UTILITY & MISCELLANEOUS
+   ----------------------------------------------- */
+
 .read-the-docs {
-  color: #888;
+  color: #888888;
+  font-size: 0.875rem;
+  margin-top: 1rem;
 }
