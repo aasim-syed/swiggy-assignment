@@ -37,6 +37,17 @@ A multi-turn conversational AI agent that understands your product preferences f
   - Use a **default image (`nike-sneaker.jpg`)**, or
   - Paste an **image URL** (auto-downloads and converts to base64).
 
+📹 Demo Videos
+Explore how the agent works across different scenarios:
+
+| ✅ Test | Description                      | 🎥 Video Link                                                                                    |
+| ------ | -------------------------------- | ------------------------------------------------------------------------------------------------ |
+| 1      | 🎯 Sneakers with specific color  | [Watch Demo](https://drive.google.com/file/d/1DN2-LhjZ6gx2PYUF-AJVdNv44hVvggJn/view?usp=sharing) |
+| 2      | 🎨 Sneakers with any color/brand | [Watch Demo](https://drive.google.com/file/d/1sDF7lJ9F4CRryMclxZPhsyGfl_ymk1U_/view?usp=sharing) |
+| 3      | 🔌 Electronics flow (Apple)      | [Watch Demo](https://drive.google.com/file/d/1oJpXO5Sl2VBanqqPFv3FN081kUo2She1/view?usp=sharing) |
+| 4      | 📚 Books category (branch test)  |                                              [Watch Demo](https://drive.google.com/file/d/1oJpXO5Sl2VBanqqPFv3FN081kUo2She1/view?usp=sharing)                                    |
+| 5    | install demo  |                                              [Watch Demo](https://drive.google.com/file/d/1V90f2_BKGiHFYOxxLXCbVTmA3dkw4uuY/view?usp=sharing)                                    |
+
 ### ⚙️ Extensible Graph Architecture (via LangGraph)
 - Modular agent nodes:
   - `image_analyzer`
