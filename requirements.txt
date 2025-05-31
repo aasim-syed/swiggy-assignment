@@ -2,3 +2,4 @@ langgraph
 openai
 Pillow
 anthropic
+requests
