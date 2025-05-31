@@ -1,5 +1,7 @@
 import json
 import os
+from agents.user_clarifier import clarify_preferences
+from agents.image_analyzer import analyze_image
 
 def recommend_product(context):
     preferences = context.get("preferences", {})
@@ -7,18 +9,16 @@ def recommend_product(context):
     color = preferences.get('color', 'any').lower()
     price_range = preferences.get('price_range', '0-10000')
 
-    # Parse price range
     try:
         min_price, max_price = map(int, price_range.split('-'))
     except:
         min_price, max_price = 0, float('inf')
 
-    # Load products from JSON
+    # Load product catalog from JSON
     json_path = os.path.join(os.path.dirname(__file__), "..", "product_db", "mock_products.json")
     with open(json_path, "r") as f:
         product_catalog = json.load(f)
 
-    # Filter recommendations
     recommendations = []
     for product in product_catalog:
         if (brand == "any" or brand in product.get("brand", "").lower()) and \
@@ -27,4 +27,16 @@ def recommend_product(context):
             recommendations.append(product)
 
     context["recommendations"] = recommendations
+
+    if not recommendations:
+        print("\n❌ No matching products found. Would you like to:")
+        print("1. Try again with different preferences")
+        print("2. Upload another image")
+        choice = input("Enter your choice (1/2): ").strip()
+        if choice == "1":
+            return clarify_preferences(context)
+        elif choice == "2":
+            context.pop("image_base64", None)
+            return analyze_image(context)
+
     return context
