@@ -128,6 +128,14 @@ npm create vite@latest shopping-assistant-ui
 
 ⚙️ Easily extensible to web apps or e-commerce APIs
 ## Test instructions:
+| Image Purpose            | Raw Image Link                                                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| Sneaker QnA (1)          | `https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102601.png` |
+| Sneaker QnA (2)          | `https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102609.png` |
+| Sneaker QnA (3)          | `https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102622.png` |
+| Final Sneaker Output     | `https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102724.png` |
+| Apple AirPods Output (1) | `https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102823.png` |
+| Apple AirPods Output (2) | `https://raw.githubusercontent.com/aasim-syed/swiggy-assignment/main/test_screenshots/Screenshot%202025-05-31%20102904.png` |
 
 ### For sneaker
 python .\main.py
