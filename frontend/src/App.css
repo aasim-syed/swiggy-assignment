@@ -200,3 +200,36 @@ button:active {
   font-size: 0.875rem;
   margin-top: 1rem;
 }
+/* src/App.css */
+
+/*  
+  .app-outer:
+    - full viewport height
+    - flex container to center its child horizontally
+    - gradient background (same as from/to Tailwind gray)
+    - vertical padding similar to py-10
+*/
+.app-outer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(
+    to bottom right,
+    #f3f4f6, /* Tailwind gray-100 */
+    #e5e7eb  /* Tailwind gray-200 */
+  );
+  padding-top: 2.5rem;   /* 2.5rem ≈ Tailwind py-10 */
+  padding-bottom: 2.5rem;
+}
+
+/*  
+  .app-inner:
+    - full width but capped at 768px (Tailwind’s max-w-3xl)
+    - horizontal padding similar to px-6
+*/
+.app-inner {
+  width: 100%;
+  max-width: 768px;
+  padding-left: 1.5rem;  /* 1.5rem ≈ Tailwind px-6 */
+  padding-right: 1.5rem;
+}

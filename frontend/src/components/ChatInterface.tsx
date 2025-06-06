@@ -1,17 +1,9 @@
 // src/components/ChatInterface.tsx
-import React, { useState, useEffect, useRef,  } from 'react';
-import type {KeyboardEvent} from 'react';
-interface ChatInterfaceProps {
-  /** 
-   * Array of questions (strings) from the “bot.” 
-   * Once the user starts typing, each question and answer appears as a chat bubble.
-   */
-  questions: string[];
+import React, { useState, useEffect, useRef } from 'react';
+import type { KeyboardEvent } from 'react';
 
-  /**
-   * Called once all questions have been answered, passing
-   * an object mapping each question → user answer.
-   */
+interface ChatInterfaceProps {
+  questions: string[];
   onSubmit: (prefs: { [key: string]: string }) => void;
 }
 
@@ -21,72 +13,49 @@ type Message = {
 };
 
 const ChatInterface: React.FC<ChatInterfaceProps> = ({ questions, onSubmit }) => {
-  // Holds the chat history of message objects ({ sender, text })
   const [messages, setMessages] = useState<Message[]>([]);
-
-  // Index of which question the bot is currently on
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-  // Collected answers so far (question → answer)
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
-
-  // Controlled input value for the user’s current answer
   const [inputValue, setInputValue] = useState<string>('');
-
-  // Ref to scroll the last message into view
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  // Whenever the `questions` prop changes, reset the chat
   useEffect(() => {
     if (questions.length > 0) {
-      // Start with the first bot question
       setMessages([{ sender: 'bot', text: questions[0] }]);
       setCurrentIndex(0);
       setAnswers({});
       setInputValue('');
     } else {
-      // No questions → clear the chat
       setMessages([]);
     }
   }, [questions]);
 
-  // Auto-scroll to the bottom whenever messages update
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Called when user clicks “Send” or presses Enter
   const sendAnswer = () => {
     const trimmed = inputValue.trim();
-    if (!trimmed) return; // Don't send empty answers
+    if (!trimmed) return;
 
     const currentQuestion = questions[currentIndex];
-
-    // 1) Add the user’s answer bubble
-    setMessages((prev) => [...prev, { sender: 'user', text: trimmed }]);
-
-    // 2) Store the answer in our map
-    setAnswers((prev) => ({ ...prev, [currentQuestion]: trimmed }));
-
-    // Clear the input field
+    setMessages(prev => [...prev, { sender: 'user', text: trimmed }]);
+    setAnswers(prev => ({ ...prev, [currentQuestion]: trimmed }));
     setInputValue('');
 
     const next = currentIndex + 1;
     if (next < questions.length) {
-      // 3) Show the next bot question after a small delay (for UX)
       setTimeout(() => {
-        setMessages((prev) => [...prev, { sender: 'bot', text: questions[next] }]);
+        setMessages(prev => [...prev, { sender: 'bot', text: questions[next] }]);
       }, 200);
       setCurrentIndex(next);
     } else {
-      // 4) All questions answered → call onSubmit after a slight delay
       setTimeout(() => {
         onSubmit({ ...answers, [currentQuestion]: trimmed });
       }, 200);
     }
   };
 
-  // Allow pressing Enter key to send the answer
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -94,51 +63,102 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ questions, onSubmit }) =>
     }
   };
 
-  return (
-    <div className="flex flex-col h-[450px] w-full shadow-lg rounded-xl overflow-hidden">
+  // Inline styles for the two bubble types
+  const botBubbleStyle: React.CSSProperties = {
+    maxWidth: '70%',
+    backgroundColor: '#F3F4F6',           // light gray
+    color: '#1F2937',                     // dark text
+    borderRadius: '16px 16px 16px 4px',   // rounded except bottom-left subtly
+    padding: '12px 16px',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+    marginBottom: '8px',
+  };
 
-      {/* ============================================= */}
-      {/*       Scrollable Chat Messages Area           */}
-      {/* ============================================= */}
-      <div className="flex-1 p-4 space-y-4 overflow-y-auto bg-white dark:bg-gray-800">
+  const userBubbleStyle: React.CSSProperties = {
+    maxWidth: '70%',
+    backgroundColor: '#2563EB',           // blue-600
+    color: '#FFFFFF',
+    borderRadius: '16px 16px 4px 16px',   // rounded except top-left subtly
+    padding: '12px 16px',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.15)',
+    marginBottom: '8px',
+    marginLeft: 'auto',
+  };
+
+  return (
+    <div className="flex flex-col h-[450px] w-full max-w-xl mx-auto shadow-lg rounded-xl overflow-hidden">
+      {/* Scrollable Chat Area */}
+      <div className="flex-1 p-4 overflow-y-auto bg-white dark:bg-gray-800">
         {messages.map((msg, idx) => (
-          <div key={idx} className="flex">
+          <div key={idx} style={{ display: 'flex' }}>
             {msg.sender === 'bot' ? (
-              // ── Bot message (left-aligned) ─────────────────────────
-              <div className="max-w-[70%] bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 
-                              rounded-tr-xl rounded-br-xl rounded-tl-xl px-4 py-3 shadow-sm animate-fadeIn">
-                <p className="whitespace-pre-wrap">{msg.text}</p>
+              <div style={botBubbleStyle}>
+                <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{msg.text}</p>
               </div>
             ) : (
-              // ── User message (right-aligned) ──────────────────────
-              <div className="ml-auto max-w-[70%] bg-blue-600 text-white 
-                              rounded-tl-xl rounded-bl-xl rounded-tr-xl px-4 py-3 shadow-md animate-fadeIn">
-                <p className="whitespace-pre-wrap">{msg.text}</p>
+              <div style={userBubbleStyle}>
+                <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{msg.text}</p>
               </div>
             )}
           </div>
         ))}
-        {/* Dummy div to scroll into view */}
         <div ref={bottomRef} />
       </div>
 
-      {/* ============================================= */}
-      {/*            Input Area (Bottom)                */}
-      {/* ============================================= */}
-      <div className="border-t border-gray-300 dark:border-gray-700 px-4 py-3 bg-gray-50 dark:bg-gray-900 flex items-center">
+      {/* Input Area */}
+      <div
+        style={{
+          borderTop: '1px solid #D1D5DB',
+          backgroundColor: '#F9FAFB',
+          padding: '12px 16px',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         <input
           type="text"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={e => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type your answer..."
-          className="flex-1 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 
-                     rounded-full px-4 py-2 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          style={{
+            flex: 1,
+            padding: '10px 16px',
+            borderRadius: '9999px',
+            border: '1px solid #CCC',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            backgroundColor: '#FFFFFF',
+            fontSize: '1rem',
+            color: '#1F2937',
+            outline: 'none',
+          }}
         />
         <button
           onClick={sendAnswer}
-          className="ml-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-transform 
-                     active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          style={{
+            marginLeft: '12px',
+            padding: '8px 20px',
+            borderRadius: '9999px',
+            backgroundColor: '#2563EB',
+            color: '#FFFFFF',
+            border: 'none',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.15)',
+            fontSize: '1rem',
+            cursor: 'pointer',
+            transition: 'transform 0.1s ease-in-out, background-color 0.2s ease-in-out',
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#1E40AF';
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#2563EB';
+          }}
+          onMouseDown={e => {
+            (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.95)';
+          }}
+          onMouseUp={e => {
+            (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)';
+          }}
         >
           Send
         </button>

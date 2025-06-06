@@ -1,5 +1,5 @@
 // src/App.tsx
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ImageUploader from './components/ImageUploader';
 import ChatInterface from './components/ChatInterface';
 import ProductCards from './components/ProductCards';
@@ -11,8 +11,9 @@ function App() {
   const [preferences, setPreferences] = useState<{ [key: string]: string }>({});
   const [recommendations, setRecommendations] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [hasSearched, setHasSearched] = useState<boolean>(false);
 
-  // Automatically fetch questions whenever productType changes
+  // Whenever productType updates, fetch new questions
   useEffect(() => {
     if (productType) {
       fetchQuestions();
@@ -41,6 +42,7 @@ function App() {
 
   const fetchRecommendations = async () => {
     try {
+      setHasSearched(true); // mark that we’ve attempted a search
       const res = await fetch('http://localhost:8000/recommend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,11 +61,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 py-10">
-      {/* ──────────────────────────────────────────────────────────────── */}
-      {/*                    Centered Container Card                    */}
-      {/* ──────────────────────────────────────────────────────────────── */}
-      <div className="max-w-3xl mx-auto px-6">
+    <div className="min-h-screen flex justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 py-10">
+      <div className="w-full max-w-3xl px-6">
         {/* Header */}
         <header className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100">
@@ -81,12 +80,12 @@ function App() {
           </div>
         )}
 
-        {/* ──────────────────────────────────────────────────────────────── */}
-        {/*                         Image Uploader                        */}
-        {/* ──────────────────────────────────────────────────────────────── */}
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
-            Step 1: Upload Product Image
+        {/* Image Uploader Card */}
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-8"
+            style={{ margin: '0 auto', maxWidth: '576px' }}
+        >
+          <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4 text-center">
+            Upload Product Image
           </h2>
           <ImageUploader
             setProductType={setProductType}
@@ -95,29 +94,32 @@ function App() {
           />
         </div>
 
-        {/* ──────────────────────────────────────────────────────────────── */}
-        {/*                         Chat Interface                         */}
-        {/* ──────────────────────────────────────────────────────────────── */}
+        {/* Chat Interface Card */}
         {questions.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-8">
-            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
-              Step 2: Answer a Few Questions
+          <div
+            className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-8"
+            style={{ margin: '0 auto', maxWidth: '576px' }}
+          >
+            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4 text-center">
+              Answer a Few Questions
             </h2>
             <ChatInterface
               questions={questions}
               onSubmit={(prefs) => {
                 setPreferences(prefs);
                 setError(null);
+                setRecommendations([]);
+                setHasSearched(false);
               }}
             />
           </div>
         )}
 
-        {/* ──────────────────────────────────────────────────────────────── */}
-        {/*                    Get Recommendations Button                 */}
-        {/* ──────────────────────────────────────────────────────────────── */}
+        {/* Get Recommendations Button */}
         {Object.keys(preferences).length > 0 && (
-          <div className="text-center mb-8">
+          <div className="text-center mb-8"
+            style={{ margin: '0 auto', maxWidth: '576px' }}
+          >
             <button
               onClick={fetchRecommendations}
               className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition-transform transform hover:-translate-y-1 active:translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -127,22 +129,26 @@ function App() {
           </div>
         )}
 
-        {/* ──────────────────────────────────────────────────────────────── */}
-        {/*                        Product Cards Grid                      */}
-        {/* ──────────────────────────────────────────────────────────────── */}
-        {recommendations.length > 0 && (
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-8">
-            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
-              Step 3: Recommended Products
+        {/* Recommendations Card */}
+        {hasSearched && (
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-8"
+            style={{ margin: '0 auto', maxWidth: '576px' }}
+          >
+            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4 text-center">
+              Recommended Products
             </h2>
-            <ProductCards products={recommendations} />
+
+            {recommendations.length > 0 ? (
+              <ProductCards products={recommendations} />
+            ) : (
+              <div className="text-center py-10">
+                <p className="text-gray-500 dark:text-gray-400">
+                  😕 No products found for the given preferences.
+                </p>
+              </div>
+            )}
           </div>
         )}
-
-        {/* Footer (optional) */}
-        <footer className="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm">
-          © {new Date().getFullYear()} AI Shopping Assistant. All rights reserved.
-        </footer>
       </div>
     </div>
   );

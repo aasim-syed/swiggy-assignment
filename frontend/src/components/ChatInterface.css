@@ -1,0 +1,81 @@
+/* src/components/ChatInterface.css */
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  width: 100%;          /* fill available space up to max-width */
+  max-width: 576px;      /* same as Tailwind’s max-w-xl */
+  margin: 0 auto;        /* center horizontally */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem; /* rounded-xl = 12px (0.75rem) */
+  overflow: hidden;
+}
+
+/* Scrollable chat area */
+.chat-messages {
+  flex: 1;
+  padding: 1rem; /* p-4 */
+  overflow-y: auto;
+  background-color: #ffffff; /* light mode; for dark mode you'd override separately */
+}
+
+/* Bottom input bar */
+.chat-input-bar {
+  border-top: 1px solid #d1d5db; /* gray-300 */
+  background-color: #f9fafb;      /* gray-50 */
+  padding: 0.75rem 1rem;          /* py-3 px-4 */
+  display: flex;
+  align-items: center;
+}
+
+/* Input field */
+.chat-input-bar input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;    /* gray-300 */
+  border-radius: 9999px;        /* fully round */
+  background-color: #ffffff;
+  color: #1f2937;               /* gray-800 */
+  outline: none;
+}
+
+/* “Send” button */
+.chat-input-bar button {
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #2563eb;    /* blue-600 */
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+.chat-input-bar button:active {
+  transform: scale(0.95);
+}
+.chat-input-bar button:hover {
+  background-color: #1e40af; /* blue-700 */
+}
+
+/* Chat-bubble styles */
+.chat-message-bot {
+  max-width: 70%;
+  background-color: #f3f4f6; /* gray-100 */
+  color: #1f2937;            /* gray-800 */
+  border-radius: 0.75rem 0.75rem 0.75rem 0; /* rounded-tr, rounded-br, rounded-tl */
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 0.5rem;
+}
+
+.chat-message-user {
+  margin-left: auto;
+  max-width: 70%;
+  background-color: #2563eb; /* blue-600 */
+  color: #ffffff;
+  border-radius: 0.75rem 0.75rem 0 0.75rem; /* rounded-tl, rounded-tr, rounded-bl */
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 0.5rem;
+}

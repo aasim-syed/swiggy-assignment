@@ -1,0 +1,144 @@
+/* src/components/ImageUploader.css */
+
+/* Container around the uploader */
+.uploader-container {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Label above the drop zone */
+.uploader-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: whitesmoke;
+}
+
+/* Hidden file input that covers the entire drop zone */
+.file-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* DROP ZONE: glossy card-like container */
+.drop-zone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ffffff, #f2f2f2);
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    0 6px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+/* Glossy highlight overlay (top half) */
+.drop-zone::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+/* When dragging over, intensify border and background */
+.drop-zone.drag-over {
+  border-color: #ff8c00;
+  background: linear-gradient(145deg, #fffaf5, #ffeee0);
+}
+
+/* Main text inside drop zone */
+.drop-zone-text {
+  color: #ff8c00;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 1;
+}
+
+/* Subtext inside drop zone */
+.drop-zone-subtext {
+  color: #333;
+  font-size: 12px;
+  margin-top: 4px;
+  z-index: 1;
+}
+
+/* Preview wrapper holds image + button */
+.preview-wrapper {
+  margin-top: 12px;
+}
+
+/* CONTAINER for the preview image—glossy “card” style */
+.image-preview-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to top, #e8e8e8, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Glossy highlight overlay on the preview */
+.image-preview-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+/* The actual <img> inside the preview */
+.image-preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+/* “Remove Image” button: glossy black style */
+.remove-button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: linear-gradient(to bottom, #444, #222);
+  color: #fff;
+  font-size: 14px;
+  border: 1px solid #111;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+/* Button hover: invert to white with dark text for contrast */
+.remove-button:hover {
+  background: linear-gradient(to bottom, #fff, #f0f0f0);
+  color: #000;
+  border-color: #ccc;
+  transform: translateY(-1px);
+}
+
+/* Button active/pressed state */
+.remove-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
