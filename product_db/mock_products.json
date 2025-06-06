@@ -21,7 +21,7 @@
   {"id": 20, "name": "Under Armour HOVR Phantom Red", "brand": "Under Armour", "color": "red", "price": 5300},
   {"id": 1, "name": "Nike Air Max White", "brand": "Nike", "color": "white", "price": 4500, "category": "sneakers"},
   {"id": 2, "name": "Adidas Ultraboost Black", "brand": "Adidas", "color": "black", "price": 5200, "category": "sneakers"},
-  {"id": 3, "name": "Puma RS-X Grey", "brand": "Puma", "color": "grey", "price": 3800, "category": "sneakers"},
+  {"id": 3, "name": "Puma RS-X Ultra", "brand": "Puma", "color": "grey", "price": 3800, "category": "sneakers"},
   {"id": 4, "name": "Reebok Classic Blue", "brand": "Reebok", "color": "blue", "price": 3400, "category": "sneakers"},
   {"id": 5, "name": "Levi's Blue Shirt", "brand": "Levi's", "color": "blue", "price": 2500, "category": "clothes"},
   {"id": 6, "name": "H&M White T-Shirt", "brand": "H&M", "color": "white", "price": 999, "category": "clothes"},

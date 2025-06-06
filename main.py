@@ -54,7 +54,7 @@ if image_b64:
     print("🔧 Invoking LangGraph...")
     try:
         graph = build_graph()
-        result = graph.invoke({"image_base64": image_b64})
+        result = graph.invoke({"image_base64": "image_b64_value_comes_here"})
         print("\n🛍️ Final Result:\n" + json.dumps(result, indent=2))
     except Exception as e:
         print("❌ Error while invoking graph:", e)
