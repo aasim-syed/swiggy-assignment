@@ -6,8 +6,13 @@ export const ProductCards = ({ products }: { products: Product[] }) => {
         <div
           key={idx}
           className="p-4 border rounded-lg shadow hover:shadow-md transition"
+          style={{
+            color:"grey"
+          }}
         >
-          <h3 className="text-lg font-bold mb-1">{product.name}</h3>
+          <h3 className="text-lg font-bold mb-1 " style={{
+            color:"black"
+          }}>{product.name}</h3>
           <p>Brand: {product.brand}</p>
           <p>Color: {product.color}</p>
           <p>Category: {product.category}</p>

@@ -130,23 +130,49 @@ function App() {
         )}
 
         {/* Recommendations Card */}
-        {hasSearched && (
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-8"
-            style={{ margin: '0 auto', maxWidth: '576px' }}
+      {hasSearched && (
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '12px',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+              margin: '0 auto',
+              maxWidth: '576px',
+              overflow: 'hidden',
+            }}
           >
-            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4 text-center">
-              Recommended Products
-            </h2>
+            {/* Header Bar */}
+            <div
+              style={{
+                backgroundColor: '#FFA500',   // bold orange
+                padding: '16px 20px',
+              }}
+            >
+              <h2
+                style={{
+                  margin: 0,
+                  color: 'black',          // white text
+                  fontSize: '1.5rem',
+                  fontWeight: 600,
+                  textAlign: 'center',
+                }}
+              >
+                Recommended Products
+              </h2>
+            </div>
 
-            {recommendations.length > 0 ? (
-              <ProductCards products={recommendations} />
-            ) : (
-              <div className="text-center py-10">
-                <p className="text-gray-500 dark:text-gray-400">
-                  😕 No products found for the given preferences.
-                </p>
-              </div>
-            )}
+            {/* Content Area */}
+            <div style={{ padding: '20px', borderTop: '2px solid #FFD580' }}>
+              {recommendations.length > 0 ? (
+                <ProductCards products={recommendations} />
+              ) : (
+                <div style={{ textAlign: 'center', padding: '40px 0' }}>
+                  <p style={{ color: '#555555', fontSize: '1rem' }}>
+                    😕 No products found for the given preferences.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
