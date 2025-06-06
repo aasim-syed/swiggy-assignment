@@ -235,7 +235,7 @@ def recommend_product(context):
                             else:
                                 if candidate.isdigit():
                                     num = int(candidate)
-                                    preferences[selected_key] = (num, num)
+                                    preferences[selected_key] = (0, num)
                                     break
                                 else:
                                     print("⚠️ Enter a numeric value or range (e.g., '1500' or '0-20000').")

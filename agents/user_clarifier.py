@@ -167,7 +167,7 @@ def clarify_preferences(context):
                         continue
                 elif candidate.isdigit():
                     num = int(candidate)
-                    preferences[key] = (num, num)
+                    preferences[key] = (0, num)
                     break
                 else:
                     print("⚠️ Invalid number. Enter numeric or range.")
