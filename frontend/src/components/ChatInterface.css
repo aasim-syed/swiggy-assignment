@@ -44,7 +44,7 @@
 .chat-input-bar button {
   margin-left: 0.5rem;
   padding: 0.5rem 1rem;
-  background-color: #2563eb;    /* blue-600 */
+  background-color: #f39044;    /* blue-600 */
   color: #ffffff;
   border: none;
   border-radius: 9999px;
@@ -55,7 +55,7 @@
   transform: scale(0.95);
 }
 .chat-input-bar button:hover {
-  background-color: #1e40af; /* blue-700 */
+  background-color: #f18010; /* blue-700 */
 }
 
 /* Chat-bubble styles */

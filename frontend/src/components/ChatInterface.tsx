@@ -76,7 +76,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ questions, onSubmit }) =>
 
   const userBubbleStyle: React.CSSProperties = {
     maxWidth: '70%',
-    backgroundColor: '#2563EB',           // blue-600
+    backgroundColor: '#f39044',           // blue-600
     color: '#FFFFFF',
     borderRadius: '16px 16px 4px 16px',   // rounded except top-left subtly
     padding: '12px 16px',
@@ -148,10 +148,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ questions, onSubmit }) =>
             transition: 'transform 0.1s ease-in-out, background-color 0.2s ease-in-out',
           }}
           onMouseEnter={e => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#1E40AF';
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#f39044';
           }}
           onMouseLeave={e => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#2563EB';
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#f18010';
           }}
           onMouseDown={e => {
             (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.95)';
