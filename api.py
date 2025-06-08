@@ -7,7 +7,7 @@ import os
 import json
 from agents.image_analyzer import analyze_image
 from agents.user_clarifier import clarify_preferences
-from agents.product_recommender import recommend_product
+from agents.product_recommender import recommend_products
 
 app = FastAPI()
 
@@ -43,25 +43,56 @@ async def analyze_image_endpoint(file: UploadFile = File(...)):
 
 @app.post("/clarify-preferences")
 def clarify_preferences_endpoint(request: PreferencesRequest):
-    try:
-        context = {"product_type": request.product_type}
-        result = clarify_preferences(context)
-        return {
-            "questions": result.get("questions", [])
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    context = {"product_type": request.product_type}
+    result = clarify_preferences(context)
+    return result  # since `result` is already a list of questions
+
 
 @app.post("/recommend")
 def recommend_endpoint(request: RecommendRequest):
     try:
-        context = {
-            "product_type": request.product_type,
-            "preferences": request.preferences
-        }
-        result = recommend_product(context)
+        result = recommend_products(request)  # ✅ pass model directly
         return {
             "recommendations": result.get("recommendations", [])
         }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+class SummaryRequest(BaseModel):
+    recommendations: list
+    preferences: dict
+    product_type: str
+
+@app.post("/summarize")
+def summarize_endpoint(request: SummaryRequest):
+    try:
+        # Build a summary prompt
+        prompt = (
+            f"The user was looking for a {request.product_type} with preferences: "
+            f"{json.dumps(request.preferences)}.\n\n"
+            f"Here are the matching products:\n"
+        )
+        for idx, p in enumerate(request.recommendations):
+            prompt += f"{idx + 1}. {p['name']} by {p['brand']} (₹{p['price']}, Color: {p['color']})\n"
+
+        # Simulate a summary (or later use LLM here)
+        summary = (
+            f"📝 Based on your preferences, we found {len(request.recommendations)} matching items. "
+            "The most suitable ones are shown above based on brand, color, and budget match."
+        )
+
+        return {"summary": summary}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# === Feedback Endpoint ===
+class FeedbackRequest(BaseModel):
+    feedback: str
+
+@app.post("/feedback")
+def feedback_endpoint(request: FeedbackRequest):
+    try:
+        # TODO: persist feedback somewhere
+        return {"message": "Thanks for your feedback!", "received": request.feedback}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
