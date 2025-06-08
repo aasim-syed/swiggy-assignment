@@ -88,10 +88,6 @@ const API = import.meta.env.VITE_API_URL;
     }
   };
 
-  const clearCart = () => {
-    setCart([]);
-    setSessionSummary('');
-  };
 
   // Inline styles for confirmed-product block
   const confirmedContainerStyle: CSSProperties = {

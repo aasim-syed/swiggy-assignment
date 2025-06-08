@@ -16,12 +16,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-const API = import.meta.env.VITE_API_URL;
+  const API = import.meta.env.VITE_API_URL;
 
-  // Shared logic for handling a File (dropped or selected)
   const handleFile = useCallback(
     async (file: File) => {
-      // Create a preview URL immediately
       const objectUrl = URL.createObjectURL(file);
       setPreview(objectUrl);
       setError(null);
@@ -30,7 +28,7 @@ const API = import.meta.env.VITE_API_URL;
       formData.append('file', file);
 
       try {
-        const res = await fetch(`${API}/analyze-image', {
+        const res = await fetch(`${API}/analyze-image`, {
           method: 'POST',
           body: formData,
         });
@@ -53,13 +51,12 @@ const API = import.meta.env.VITE_API_URL;
           return;
         }
 
-        // Otherwise, use inferred category
+        // Use the inferred category
         setProductType(data.product_type);
-        alert(`🧠 Category inferred: ${data.product_type}`);
+        alert(`Category inferred: ${data.product_type}`);
         setError(null);
         fetchQuestions();
       } catch (err: unknown) {
-        // On error, revoke preview and clear state
         URL.revokeObjectURL(objectUrl);
         setPreview(null);
 
@@ -70,28 +67,21 @@ const API = import.meta.env.VITE_API_URL;
         }
       }
     },
-    [fetchQuestions, setError, setProductType]
+    [API, fetchQuestions, setError, setProductType]
   );
 
-  // Called when the hidden file input changes
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      handleFile(file);
-    }
+    if (file) handleFile(file);
   };
 
-  // Called on drop
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
     const file = e.dataTransfer.files?.[0];
-    if (file) {
-      handleFile(file);
-    }
+    if (file) handleFile(file);
   };
 
-  // Remove the preview, allowing a new selection
   const removePreview = () => {
     if (preview) {
       URL.revokeObjectURL(preview);
@@ -109,11 +99,11 @@ const API = import.meta.env.VITE_API_URL;
 
       <div
         className={`drop-zone${isDragging ? ' drag-over' : ''}`}
-        onDragOver={(e) => {
+        onDragOver={e => {
           e.preventDefault();
           setIsDragging(true);
         }}
-        onDragLeave={(e) => {
+        onDragLeave={e => {
           e.preventDefault();
           setIsDragging(false);
         }}
@@ -130,9 +120,7 @@ const API = import.meta.env.VITE_API_URL;
         <div className="drop-zone-text">
           {isDragging ? 'Drop image here' : 'Drag & drop an image, or click to select'}
         </div>
-        <div className="drop-zone-subtext">
-          (Supports JPEG, PNG, GIF, etc.)
-        </div>
+        <div className="drop-zone-subtext">(Supports JPEG, PNG, GIF, etc.)</div>
       </div>
 
       {preview && (
