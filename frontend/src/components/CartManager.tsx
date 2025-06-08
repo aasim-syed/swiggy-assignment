@@ -1,5 +1,5 @@
 // src/components/CartManager.tsx
-import React from 'react';
+import type { CSSProperties } from 'react';
 import type { Product } from '../types/types';
 
 interface Props {
@@ -7,34 +7,82 @@ interface Props {
   onCheckout: () => void;
 }
 
-const CartManager: React.FC<Props> = ({ cart, onCheckout }) => {
+export default function CartManager({ cart, onCheckout }: Props) {
   if (cart.length === 0) return null;
+
+  // Inline styles matching Swiggy theme
+  const containerStyle: CSSProperties = {
+    maxWidth: '530px',
+    margin: '0 auto',
+    padding: '24px',
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+  };
+
+  const headerStyle: CSSProperties = {
+    fontSize: '24px',
+    fontWeight: 700,
+    color: '#fb641b',
+    textAlign: 'center' as const,
+    marginBottom: '16px',
+  };
+
+  const listStyle: CSSProperties = {
+    marginBottom: '16px',
+    listStyleType: 'none',
+    padding: 0,
+  };
+
+  const listItemStyle: CSSProperties = {
+    fontSize: '16px',
+    color: '#333333',
+    marginBottom: '8px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  };
+
+  const totalStyle: CSSProperties = {
+    fontSize: '18px',
+    fontWeight: 600,
+    color: '#333333',
+    textAlign: 'right' as const,
+    marginBottom: '20px',
+  };
+
+  const buttonStyle: CSSProperties = {
+    display: 'block',
+    margin: '0 auto',
+    padding: '12px 32px',
+    backgroundColor: '#fb641b',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '24px',
+    fontSize: '16px',
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+  };
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm p-6 mt-8 max-w-md mx-auto">
-      <h2 className="text-xl font-semibold mb-4 text-center text-green-700 dark:text-green-300">🛒 Your Cart</h2>
-      <ul className="space-y-2">
-        {cart.map((item, index) => (
-          <li key={index} className="text-gray-700 dark:text-gray-300">
-            ✅ {item.name} - ₹{item.price}
+    <div style={containerStyle}>
+      <h2 style={headerStyle}>🛒 Your Cart</h2>
+      <ul style={listStyle}>
+        {cart.map((item, idx) => (
+          <li key={idx} style={listItemStyle}>
+            <span>{item.name}</span>
+            <span>₹{item.price.toLocaleString()}</span>
           </li>
         ))}
       </ul>
-      <div className="mt-4 text-right text-lg text-green-800 dark:text-green-200">
-        <strong>Total:</strong> ₹{total}
+      <div style={totalStyle}>
+        <strong>Total:</strong> ₹{total.toLocaleString()}
       </div>
-      <div className="mt-4 text-center">
-        <button
-          onClick={onCheckout}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-md shadow-md"
-        >
-          ✅ Proceed to Checkout
-        </button>
-      </div>
+      <button style={buttonStyle} onClick={onCheckout}>
+        Proceed to Checkout
+      </button>
     </div>
   );
-};
-
-export default CartManager;
+}

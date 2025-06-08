@@ -5,7 +5,8 @@ import ChatInterface from './components/ChatInterface';
 import ProductConfirmation from './components/ProductConfirmation';
 import FeedbackForm from './components/FeedbackFrom';
 import type { Product } from './types/types';
-
+import CartManager from './components/CartManager';
+import type { CSSProperties } from 'react';
 function App() {
   const [productType, setProductType] = useState<string>('');
   const [questions, setQuestions] = useState<string[]>([]);
@@ -92,6 +93,48 @@ function App() {
     setSessionSummary('');
   };
 
+  // Inline styles for confirmed-product block
+  const confirmedContainerStyle: CSSProperties = {
+    maxWidth: '530px',
+    margin: '0 auto',
+    padding: '24px',
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    textAlign: 'center' as const,
+  };
+  const confirmedTextStyle: CSSProperties = {
+    fontSize: '20px',
+    fontWeight: 600,
+    color: '#333333',
+    marginBottom: '16px',
+  };
+  const buttonGroupStyle: CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '16px',
+  };
+  const primaryButtonStyle: CSSProperties = {
+    padding: '12px 32px',
+    backgroundColor: '#fb641b',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '24px',
+    fontSize: '16px',
+    fontWeight: 600,
+    cursor: 'pointer',
+  };
+  const secondaryButtonStyle: CSSProperties = {
+    padding: '12px 32px',
+    backgroundColor: '#e0e0e0',
+    color: '#333333',
+    border: 'none',
+    borderRadius: '24px',
+    fontSize: '16px',
+    cursor: 'pointer',
+  };
+
+
   return (
     <div className="min-h-screen flex justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 py-10">
       <div className="w-full max-w-3xl px-6">
@@ -158,41 +201,24 @@ function App() {
         )}
 
         {/* Confirmed Product Actions */}
-        {confirmedProduct && (
-          <div style={{ margin: '0 auto', maxWidth: '576px' }} className="text-center mb-8">
-            <p className="text-lg font-semibold text-green-600 mb-2">
-              ✅ Confirmed: {confirmedProduct.name}
+{confirmedProduct && (
+          <div style={confirmedContainerStyle}>
+            <p style={confirmedTextStyle}>
+              🛒 Added to Cart: {confirmedProduct.name}
             </p>
-            <button onClick={addToCart} className="px-4 py-2 bg-blue-600 text-white rounded-md mr-2">
-              Add to Cart
-            </button>
-            <button onClick={() => setConfirmedProduct(null)} className="px-4 py-2 bg-gray-300 rounded-md">
-              Refine
-            </button>
-          </div>
-        )}
-
-        {/* Cart Summary */}
-        {cart.length > 0 && (
-          <div style={{ margin: '0 auto', maxWidth: '576px' }} className="bg-white dark:bg-gray-900 p-6 rounded shadow mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-center">
-              🛒 Cart
-            </h2>
-            <ul className="list-disc list-inside mb-4">
-              {cart.map((item, idx) => (
-                <li key={idx}>{item.name} — ₹{item.price}</li>
-              ))}
-            </ul>
-            <div className="flex justify-center space-x-4">
-              <button onClick={fetchSummary} className="px-4 py-2 bg-purple-600 text-white rounded-md">
-                Summarize
+            <div style={buttonGroupStyle}>
+              <button style={primaryButtonStyle} onClick={addToCart}>
+                Proceed to Checkout
               </button>
-              <button onClick={clearCart} className="px-4 py-2 bg-red-500 text-white rounded-md">
-                Clear Cart
+              <button style={secondaryButtonStyle} onClick={() => setConfirmedProduct(null)}>
+                Continue Shopping
               </button>
             </div>
           </div>
         )}
+
+        {/* Cart Summary */}
+ <CartManager cart={cart} onCheckout={fetchSummary} />
 
         {/* Session Summary */}
         {sessionSummary && (
