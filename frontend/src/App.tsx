@@ -18,6 +18,8 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState<boolean>(false);
 const API = import.meta.env.VITE_API_URL;
+console.log("API")
+console.log(API)
   useEffect(() => {
     if (productType) {
       fetchQuestions();
