@@ -45,7 +45,7 @@ console.log(API)
   const fetchRecommendations = async () => {
     try {
       setHasSearched(true);
-      const res = await fetch(`${API}recommend`, {
+      const res = await fetch(`${API}/recommend`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ product_type: productType, preferences }),
