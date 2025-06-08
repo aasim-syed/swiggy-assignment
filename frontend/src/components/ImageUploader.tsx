@@ -16,6 +16,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+const API = import.meta.env.VITE_API_URL;
 
   // Shared logic for handling a File (dropped or selected)
   const handleFile = useCallback(
@@ -29,7 +30,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       formData.append('file', file);
 
       try {
-        const res = await fetch('http://localhost:8000/analyze-image', {
+        const res = await fetch(`${API}/analyze-image', {
           method: 'POST',
           body: formData,
         });

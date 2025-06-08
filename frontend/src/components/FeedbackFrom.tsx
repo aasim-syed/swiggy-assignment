@@ -3,9 +3,10 @@ import { useState } from 'react';
 export default function FeedbackForm() {
   const [feedback, setFeedback] = useState('');
   const [submitted, setSubmitted] = useState(false);
+const API = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async () => {
-    await fetch('http://localhost:8000/feedback', {
+    await fetch(`${API}/feedback`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ feedback }),

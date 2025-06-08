@@ -17,7 +17,7 @@ function App() {
   const [sessionSummary, setSessionSummary] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState<boolean>(false);
-
+const API = import.meta.env.VITE_API_URL;
   useEffect(() => {
     if (productType) {
       fetchQuestions();
@@ -27,7 +27,7 @@ function App() {
 
   const fetchQuestions = async () => {
     try {
-      const res = await fetch('http://localhost:8000/clarify-preferences', {
+      const res = await fetch( `${API}/clarify-preferences`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ product_type: productType }),
@@ -43,7 +43,7 @@ function App() {
   const fetchRecommendations = async () => {
     try {
       setHasSearched(true);
-      const res = await fetch('http://localhost:8000/recommend', {
+      const res = await fetch(`${API}recommend`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ product_type: productType, preferences }),
@@ -59,7 +59,7 @@ function App() {
 
   const fetchSummary = async () => {
     try {
-      const res = await fetch('http://localhost:8000/summarize', {
+      const res = await fetch(`${API}/summarize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
